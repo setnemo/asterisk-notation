@@ -7,5 +7,7 @@
 - install composer dependencies `composer install`
 - write code according PSR-12 Standard and don't forget about unit tests
 - check PSR with command `make psr12-check` and fix it with command `make psr12-fix`
+- check with command `make psalm` and if you have errors - fix it
 - commit you work, also write commit message according [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)
 - push you work and create pull request
+- 
