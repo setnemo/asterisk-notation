@@ -31,5 +31,6 @@
             "Tests\\Unit\\": "tests/unit",
             "Tests\\Helper\\": "tests/_support/Helper"
         }
-    }
+    },
+    "version": "0.0.0"
 }
