@@ -17,7 +17,7 @@ Asterisk notation for array access in PHP. Update array access to the next level
 ```php
 use Setnemo\Asterisk;
 
-$items = new Asterisk([
+$items = new \Setnemo\Asterisk([
     'Europe' => [
         'Ukraine' => [
             'capital' => 'Kyiv',
@@ -58,44 +58,44 @@ composer require setnemo/asterisk-notation
 
 ## Usage
 
-Create a new Asterisk object:
+Create a new \Setnemo\Asterisk object:
 
 ```php
 use Adbar\Dot;
 use Setnemo\Asterisk;
-$asterisk = new Asterisk;
+$asterisk = new \Setnemo\Asterisk;
 $array = ['first_one' => ['second' => 'value'], 'first_two' => ['second' => 'value'],];
 // With existing array
-$asterisk = new Asterisk($array);
+$asterisk = new \Setnemo\Asterisk($array);
 // With existing \Adbar\Dot
 $dot = new Dot($array);
-$asterisk = new Asterisk($dot);
+$asterisk = new \Setnemo\Asterisk($dot);
 // or existing Asterisk
-$newAsterisk = new Asterisk($asterisk);
+$newAsterisk = new \Setnemo\Asterisk($asterisk);
 ```
 
 ## Methods
 
 Asterisk has the following methods:
 
-- [add()](#add) // done, test included
-- [all()](#all) // done, test included
-- [clear()](#clear) // use Dot::clear(), test included because used set()
-- [count()](#count) // use Dot::count(), test included because used get()
-- [delete()](#delete) // done, test included
-- [flatten()](#flatten) // use Dot::flatten()
-- [get()](#get) // done, test included
-- [has()](#has) // done, with 2 new parameters, test included
-- [isEmpty()](#isempty) // use Dot::isEmpty(), test included because used get()
-- [merge()](#merge) // use Dot::merge()
-- [mergeRecursive()](#mergerecursive)// use Dot::mergeRecursive()
-- [mergeRecursiveDistinct()](#mergerecursivedistinct)// use Dot::mergeRecursiveDistinct()
-- [pull()](#pull) // use Dot::pull(), **need write tests**, because used get(), clear(), delete()
-- [push()](#push) // use Dot::push(), **need write tests**, because used get(), set()
+- [add()](#add)
+- [all()](#all)
+- [clear()](#clear)
+- [count()](#count)
+- [delete()](#delete)
+- [flatten()](#flatten)
+- [get()](#get)
+- [has()](#has)
+- [isEmpty()](#isempty)
+- [merge()](#merge)
+- [mergeRecursive()](#mergerecursive)
+- [mergeRecursiveDistinct()](#mergerecursivedistinct)
+- [pull()](#pull)
+- [push()](#push)
 - [replace()](#replace) // use Dot::replace(), **need write tests**, because used get(), set()
-- [set()](#set) // done, test included
-- [setArray()](#setarray) // use Dot::setarray()
-- [setReference()](#setreference) // use Dot::setReference()
+- [set()](#set)
+- [setArray()](#setarray)
+- [setReference()](#setreference)
 - [toJson()](#tojson) // use Dot::toJson(), **need write tests**, because used get()
 
 <a name="add"></a>
@@ -232,31 +232,31 @@ $asterisk->has([
 
 With asterisk:
 ```php
-$asterisk = new Asterisk(['1' => ['second' => 'value'],'2' => ['second' => 'value']]);
+$asterisk = new \Setnemo\Asterisk(['1' => ['second' => 'value'],'2' => ['second' => 'value']]);
 $asterisk->has('*.second'); // true
-$asterisk = new Asterisk(['1' => ['first' => ['test' => 42]],'2' => ['second' => 'value'],'3' => ['third' => ['value' => 42]]]);
+$asterisk = new \Setnemo\Asterisk(['1' => ['first' => ['test' => 42]],'2' => ['second' => 'value'],'3' => ['third' => ['value' => 42]]]);
 $asterisk->has('*.*.value'); // true
-$asterisk = new Asterisk(['user1' => ['name' => 'John', 'job' => 'warrior'], 'user2' => ['name' => 'Robin', 'job' => 'archer']);
+$asterisk = new \Setnemo\Asterisk(['user1' => ['name' => 'John', 'job' => 'warrior'], 'user2' => ['name' => 'Robin', 'job' => 'archer']);
 $asterisk->has('*.spouse'); // false
 ```
 
 With asterisk and value:
 ```php
-$asterisk = new Asterisk([]);
+$asterisk = new \Setnemo\Asterisk([]);
 $asterisk->has('*', false); // false
-$asterisk = new Asterisk(['*' => ['second' => 'VALUE']]);
+$asterisk = new \Setnemo\Asterisk(['*' => ['second' => 'VALUE']]);
 $asterisk->has('*.second', 'VALUE'); // true
 $asterisk->has('*.second', 'value'); // false because lowercase
-$asterisk = new Asterisk(['*' => ['second' => 'value'], 0 => [0 => 0], 11 => 11]);
+$asterisk = new \Setnemo\Asterisk(['*' => ['second' => 'value'], 0 => [0 => 0], 11 => 11]);
 $asterisk->has('*.11', 11); // true
-$asterisk = new Asterisk(['1' => ['second' => 'value'],'2' => ['second' => '-']]);
+$asterisk = new \Setnemo\Asterisk(['1' => ['second' => 'value'],'2' => ['second' => '-']]);
 $asterisk->has('*.second', 'value'); // false because 'second' => '-'
-$asterisk = new Asterisk(['1' => ['second' => 'value'],'2' => ['second' => 'value']]);
+$asterisk = new \Setnemo\Asterisk(['1' => ['second' => 'value'],'2' => ['second' => 'value']]);
 $asterisk->has('*.second', 'value'); // true
 ```
 With asterisk and value (non-strict mode):
 ```php
-$asterisk = new Asterisk([
+$asterisk = new \Setnemo\Asterisk([
 'locations' => [
     'Europe' => [
         'Ukraine' => [
@@ -315,7 +315,7 @@ $asterisk->isEmpty();
 
 Also works with asterisk in key:
 ```php
-$asterisk = new Asterisk(['user1' => ['name' => 'John'], 'user2' => ['name' => 'Robin']);
+$asterisk = new \Setnemo\Asterisk(['user1' => ['name' => 'John'], 'user2' => ['name' => 'Robin']);
 $asterisk->isEmpty('*.name'); // false
 $asterisk->isEmpty('*.spouse'); // true
 ```
@@ -355,12 +355,20 @@ Returns a given default value, if the given key doesn't exist:
 ```php
 echo $asterisk->pull('user.name', 'some default value');
 ```
+> Default value not work with asterisk in query!
 
 Returns all the stored items as an array and clears the Dot object:
 ```php
 $items = $asterisk->pull();
 ```
 
+Key with asterisk:
+```php
+$asterisk = new \Setnemo\Asterisk([['user1' => ['name' => 'John', 'job' => 'warrior'], 'user2' => ['name' => 'Robin', 'job' => 'archer'],]]);
+$result = $asterisk->pull('*.name'); // ['user1.name' => 'John', 'user2.name' => 'Robin']
+$all = $asterisk->all(); // ['user1' => ['job' => 'warrior'], 'user2' => ['job' => 'archer'],]
+ 
+```
 <a name="push"></a>
 ### push()
 
@@ -379,6 +387,27 @@ $asterisk->push('John');
 // Equivalent vanilla PHP
 $array[] = 'John';
 ```
+
+With asterisk:
+```php
+$asterisk = new \Setnemo\Asterisk([
+    'first_one' => ['second' => 'value'],
+    'first_two' => ['second' => 'value']
+]);
+$asterisk->push('*.second', 'John');
+
+$asterisk->all();
+/*
+[
+    'first_one' => ['second' => ['value','VALUE']],
+    'first_two' => ['second' => ['value','VALUE']]
+]
+ */
+```
+
+Also work as Asterisk::set('key', 'value', true), where true is asterisk boolean.
+See [Asterisk::set()](#set)
+
 
 <a name="replace"></a>
 ### replace()
@@ -425,4 +454,4 @@ $asterisk->set([
 
 ## License
 
-[MIT license](LICENSE)
+[MIT license](LICENSE.txt)

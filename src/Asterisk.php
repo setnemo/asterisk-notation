@@ -143,6 +143,35 @@ class Asterisk extends Dot
         $items = $value;
     }
 
+
+    /**
+     * Push a given value to the end of the array
+     * in a given key
+     *
+     * @param mixed $key
+     * @param mixed $value
+     */
+    public function push($key, $value = null, bool $asterisk = true)
+    {
+        if (is_null($value)) {
+            $this->items[] = $key;
+
+            return;
+        }
+
+        $items = $this->get($key);
+        if ($asterisk && $this->keyHasStars($key)) {
+            $items = $this->prepareStarsAffectedKeys($key, $value);
+            foreach ($items as $key => $item) {
+                $changedItems = $this->get($key);
+                $this->set($key, array_merge((array)$changedItems, (array)$value), false);
+            }
+        } elseif (is_array($items) || is_null($items)) {
+            $items[] = $value;
+            $this->set($key, $items, $asterisk);
+        }
+    }
+
     /**
      * @param string $asteriskKey
      * @param $value
@@ -188,6 +217,11 @@ class Asterisk extends Dot
     protected function getStarsAffectedKeys(string $asteriskKey, bool $withValues = true): ?array
     {
         $keys = $this->flatten();
+
+        if ([] === $keys) {
+            return null;
+        }
+
         $result = [];
         $pattern = '/' . strtr($asteriskKey, ['*' => '[^\.]+']) . '/';
         foreach ($keys as $key => $v) {
@@ -233,12 +267,12 @@ class Asterisk extends Dot
     }
 
     /**
-     * @param $keys
+     * @param $key
      * @return bool
      */
-    protected function keyHasStars($keys): bool
+    protected function keyHasStars($key): bool
     {
-        $counter = array_count_values(explode('.', (string) $keys) ?? []);
+        $counter = array_count_values(explode('.', (string) $key) ?? []);
 
         return (bool) ($counter['*'] ?? 0);
     }
