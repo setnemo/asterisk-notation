@@ -87,7 +87,7 @@ Asterisk has the following methods:
 - [get()](#get)
 - [has()](#has)
 - [isEmpty()](#isempty)
-- [merge()](#merge)
+- [merge()](#merge) // use Dot::merge(), **need write tests**, because used get(), set()
 - [mergeRecursive()](#mergerecursive)
 - [mergeRecursiveDistinct()](#mergerecursivedistinct)
 - [pull()](#pull)

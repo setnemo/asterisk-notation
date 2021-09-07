@@ -10,4 +10,3 @@
 - check with command `make psalm` and if you have errors - fix it
 - commit you work, also write commit message according [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)
 - push you work and create pull request
-- 

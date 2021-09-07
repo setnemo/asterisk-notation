@@ -18,6 +18,13 @@ namespace Setnemo;
 
 use Adbar\Dot;
 
+use function PHPUnit\Framework\isNull;
+
+/**
+ * Asterisk is provide asterisk notation access to arrays
+ *
+ * @package Setnemo
+ */
 class Asterisk extends Dot
 {
     /**
@@ -27,7 +34,7 @@ class Asterisk extends Dot
      * @param array|int|string $keys
      * @param mixed            $value
      */
-    public function add($keys, $value = null)
+    public function add($keys, $value = null): void
     {
         if (is_array($keys)) {
             foreach ($keys as $key => $value) {
@@ -42,7 +49,7 @@ class Asterisk extends Dot
      * Delete the contents of a given key or keys
      *
      * @param array|int|string|null $keys
-     * @param bool $asterisk
+     * @param bool                  $asterisk
      */
     public function clear($keys = null, bool $asterisk = true): void
     {
@@ -62,7 +69,7 @@ class Asterisk extends Dot
      *
      * @param array|int|string $keys
      */
-    public function delete($keys)
+    public function delete($keys): void
     {
         $keys = (array) $keys;
         $affectedKeys = $this->getAffectedAndFilterKeys($keys);
@@ -72,20 +79,20 @@ class Asterisk extends Dot
 
     /**
      * Return the value of a given key
-     * with star - all keys as array ['key.with.dot' => 'value']
+     * with asterisk - all keys as array ['key.with.dot' => 'value']
      *
      * @param int|string|null $key
-     * @param mixed $default
-     * @param bool $asterisk
+     * @param mixed           $default
+     * @param bool            $asterisk
      * @return mixed
      */
     public function get($key = null, $default = null, bool $asterisk = true)
     {
-        if (false === $asterisk || is_null($key) || !$this->keyHasStars($key)) {
+        if (false === $asterisk || is_null($key) || !$this->keyHasAsterisk($key)) {
             return parent::get($key, $default);
         }
 
-        return $this->getStarsAffectedKeys($key);
+        return $this->getAffectedKeys((string) $key);
     }
 
     /**
@@ -93,8 +100,8 @@ class Asterisk extends Dot
      * Also compare values with strict mode (default)
      *
      * @param array|int|string $keys
-     * @param null $value
-     * @param bool $strict
+     * @param null             $value
+     * @param bool             $strict
      * @return bool
      */
     public function has($keys, $value = null, bool $strict = true): bool
@@ -106,20 +113,20 @@ class Asterisk extends Dot
 
         $affectedKeys = $this->getAffectedAndFilterKeys($keys);
 
-        if (null !== $value) {
+        if (!is_null($value)) {
             return $this->hasValueAndStrict(array_merge($affectedKeys, $keys), $value, $strict);
         }
 
-        return (bool) (!empty($affectedKeys) | parent::has($keys));
+        return (bool) ((int) !empty($affectedKeys) | (int) parent::has($keys));
     }
 
     /**
      * Set a given key / value pair or pairs
-     *
      * @param array|int|string $keys
      * @param mixed            $value
+     * @param bool             $asterisk
      */
-    public function set($keys, $value = null, bool $asterisk = true)
+    public function set($keys, $value = null, bool $asterisk = true): void
     {
         if (is_array($keys)) {
             foreach ($keys as $key => $value) {
@@ -127,8 +134,8 @@ class Asterisk extends Dot
             }
             return;
         }
-        if ($asterisk && $this->keyHasStars($keys)) {
-            $affectedKeys = $this->prepareStarsAffectedKeys($keys, $value);
+        if ($asterisk && $this->keyHasAsterisk($keys)) {
+            $affectedKeys = $this->prepareAffectedKeys((string) $keys, $value);
             $this->set($affectedKeys, [], false);
             return;
         }
@@ -143,103 +150,10 @@ class Asterisk extends Dot
         $items = $value;
     }
 
-
-    /**
-     * Push a given value to the end of the array
-     * in a given key
-     *
-     * @param mixed $key
-     * @param mixed $value
-     */
-    public function push($key, $value = null, bool $asterisk = true)
-    {
-        if (is_null($value)) {
-            $this->items[] = $key;
-
-            return;
-        }
-
-        $items = $this->get($key);
-        if ($asterisk && $this->keyHasStars($key)) {
-            $items = $this->prepareStarsAffectedKeys($key, $value);
-            foreach ($items as $key => $item) {
-                $changedItems = $this->get($key);
-                $this->set($key, array_merge((array)$changedItems, (array)$value), false);
-            }
-        } elseif (is_array($items) || is_null($items)) {
-            $items[] = $value;
-            $this->set($key, $items, $asterisk);
-        }
-    }
-
-    /**
-     * @param string $asteriskKey
-     * @param $value
-     * @return array
-     */
-    protected function prepareStarsAffectedKeys(string $asteriskKey, $value): array
-    {
-        $keys = $this->getStarsAffectedKeys($asteriskKey);
-        if ($this->isEmpty() && empty($keys)) {
-            return [$asteriskKey => $value];
-        }
-
-        foreach ($keys as $key => $v) {
-            $keys[$key] = $value;
-        }
-
-        return $keys;
-    }
-
     /**
      * @param array $keys
-     * @return array
-     */
-    protected function getAffectedAndFilterKeys(array &$keys): array
-    {
-        $affectedKeys = [];
-        foreach ($keys as $it => $key) {
-            if ($this->keyHasStars($key)) {
-                $affectedKeys = array_merge($affectedKeys, $this->getStarsAffectedKeys($key, false) ?? []);
-
-                unset($keys[$it]);
-            }
-        }
-
-        return $affectedKeys;
-    }
-
-    /**
-     * @param string $asteriskKey
-     * @param bool $withValues
-     * @return array|null
-     */
-    protected function getStarsAffectedKeys(string $asteriskKey, bool $withValues = true): ?array
-    {
-        $keys = $this->flatten();
-
-        if ([] === $keys) {
-            return null;
-        }
-
-        $result = [];
-        $pattern = '/' . strtr($asteriskKey, ['*' => '[^\.]+']) . '/';
-        foreach ($keys as $key => $v) {
-            $matches = [];
-            preg_match_all($pattern, "$key", $matches);
-            $matchResult = $matches[0][0] ?? [];
-            if (!empty($matchResult) || $matchResult === "0") {
-                $result = array_merge($result, $withValues ? [$matchResult => $v] : [$matchResult]);
-            }
-        }
-
-        return empty($result) ? null : $result;
-    }
-
-    /**
-     * @param array $keys
-     * @param $value
-     * @param bool $strict
+     * @param       $value
+     * @param bool  $strict
      * @return bool
      */
     protected function hasValueAndStrict(
@@ -267,13 +181,101 @@ class Asterisk extends Dot
     }
 
     /**
-     * @param $key
+     * Push a given value to the end of the array
+     * in a given key
+     *
+     * @param mixed $key
+     * @param mixed $value
+     */
+    public function push($key, $value = null, bool $asterisk = true): void
+    {
+        $items = $this->get($key);
+        if ($asterisk && $this->keyHasAsterisk($key)) {
+            $items = $this->prepareAffectedKeys($key, $value);
+            foreach ($items as $key => $item) {
+                $changedItems = $this->get($key);
+                $this->set($key, array_merge((array)$changedItems, (array)$value), false);
+            }
+        } elseif (is_array($items) || is_null($items)) {
+            $items[] = $value ?? [];
+            $this->set($key, $items, $asterisk);
+        }
+    }
+
+    /**
+     * @param array $keys
+     * @return      array
+     */
+    protected function getAffectedAndFilterKeys(array &$keys): array
+    {
+        $affectedKeys = [];
+        foreach ($keys as $it => $key) {
+            if ($this->keyHasAsterisk($key)) {
+                $affectedKeys = array_merge($affectedKeys, $this->getAffectedKeys($key, false) ?? []);
+
+                unset($keys[$it]);
+            }
+        }
+
+        return $affectedKeys;
+    }
+
+    /**
+     * @param string $asteriskKey
+     * @param bool   $withValues
+     * @return array|null
+     */
+    protected function getAffectedKeys(string $asteriskKey, bool $withValues = true): ?array
+    {
+        $keys = $this->flatten();
+
+        if ([] === $keys) {
+            return null;
+        }
+
+        $result = [];
+        $pattern = '/' . strtr($asteriskKey, ['*' => '[^\.]+']) . '/';
+        foreach ($keys as $key => $v) {
+            $matches = [];
+            preg_match_all($pattern, "$key", $matches);
+            $matchResult = $matches[0][0] ?? '';
+            if (!empty($matchResult) || $matchResult === '0') {
+                $result = array_merge($result, $withValues ? [$matchResult => $v] : [$matchResult]);
+            }
+        }
+
+        return empty($result) ? null : $result;
+    }
+
+    /**
+     * @param  $key
      * @return bool
      */
-    protected function keyHasStars($key): bool
+    protected function keyHasAsterisk($key): bool
     {
         $counter = array_count_values(explode('.', (string) $key) ?? []);
 
         return (bool) ($counter['*'] ?? 0);
+    }
+
+    /**
+     * @param string $asteriskKey
+     * @param        $value
+     * @return array
+     */
+    protected function prepareAffectedKeys(string $asteriskKey, $value): array
+    {
+        $keys = $this->getAffectedKeys($asteriskKey);
+        if ($this->isEmpty() && empty($keys)) {
+            return [$asteriskKey => $value ?? []];
+        }
+
+        if (is_array($keys)) {
+            foreach ($keys as $key => $v) {
+                $keys[$key] = $value;
+            }
+        }
+
+        return $keys;
     }
 }
