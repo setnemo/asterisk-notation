@@ -1,14 +1,14 @@
 # PHP Asterisk Notation
 
-[![Latest Stable Version](https://img.shields.io/packagist/v/setnemo/asterisk-notation.svg)](https://packagist.org/packages/setnemo/asterisk-notation)
-[![Github actions Build](https://github.com/setnemo/asterisk-notation/workflows/Actions/badge.svg)](//github.com/setnemo/asterisk-notation/actions)
+[![Latest Stable Version](https://img.shields.io/github/v/release/setnemo/asterisk-notation)](https://github.com/setnemo/asterisk-notation/releases)
+[![Github actions Build](https://img.shields.io/github/workflow/status/setnemo/asterisk-notation/Tests)](//github.com/setnemo/asterisk-notation/actions)
 [![SonarCloud Coverage](https://sonarcloud.io/api/project_badges/measure?project=setnemo_asterisk-notation&metric=coverage)](https://sonarcloud.io/component_measures/metric/coverage/list?id=setnemo_asterisk-notation)
 [![SonarCloud Reliability rating](https://sonarcloud.io/api/project_badges/measure?project=setnemo_asterisk-notation&metric=reliability_rating)](https://sonarcloud.io/component_measures/metric/reliability_rating/list?id=setnemo_asterisk-notation)
 [![SonarCloud Security rating](https://sonarcloud.io/api/project_badges/measure?project=setnemo_asterisk-notation&metric=security_rating)](https://sonarcloud.io/component_measures/metric/security_rating/list?id=setnemo_asterisk-notation)
 [![SonarCloud Bugs](https://sonarcloud.io/api/project_badges/measure?project=setnemo_asterisk-notation&metric=bugs)](https://sonarcloud.io/component_measures/metric/bugs/list?id=setnemo_asterisk-notation)
 [![SonarCloud Code Smells](https://sonarcloud.io/api/project_badges/measure?project=setnemo_asterisk-notation&metric=code_smells)](https://sonarcloud.io/component_measures/metric/code_smells/list?id=setnemo_asterisk-notation)
 [![Github License](https://img.shields.io/github/license/setnemo/asterisk-notation.svg)](https://packagist.org/packages/setnemo/asterisk-notation)
-[![Total Downloads](https://img.shields.io/packagist/dt/setnemo/asterisk-notation.svg)](https://packagist.org/packages/setnemo/asterisk-notation)
+![Repo Size](https://img.shields.io/github/repo-size/setnemo/asterisk-notation)
 
 Asterisk notation for array access in PHP. Update array access to the next level of usability.
 
