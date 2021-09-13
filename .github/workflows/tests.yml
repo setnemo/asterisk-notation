@@ -52,7 +52,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
           args: >
-            -Dsonar.organization=omentes
+            -Dsonar.organization=setnemo
             -Dsonar.host.url=https://sonarcloud.io/
             -Dsonar.projectKey=setnemo_asterisk-notation
             -Dsonar.exlusions=vendor
