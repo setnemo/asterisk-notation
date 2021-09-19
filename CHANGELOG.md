@@ -1,5 +1,12 @@
 # Changelog
 
+### [0.1.2](https://www.github.com/setnemo/asterisk-notation/compare/v0.1.1...v0.1.2) (2021-09-19)
+
+
+### Miscellaneous Chores
+
+* add tests for merge functions ([766c5b9](https://www.github.com/setnemo/asterisk-notation/commit/766c5b93b42d4715daefc48484aa78786b423912))
+
 ### [0.1.1](https://www.github.com/setnemo/asterisk-notation/compare/v0.1.0...v0.1.1) (2021-09-13)
 
 
