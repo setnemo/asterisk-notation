@@ -36,7 +36,7 @@ class DeleteTest extends Unit
                     'constructor' => [],
                     'expected' => [],
                     'key' => '*.second'
-                ]
+                ],
             ],
             /* #1 */
             [

@@ -38,7 +38,7 @@ class PushTest extends Unit
                     ],
                     'key' => '*.second',
                     'value' => 'VALUE'
-                ]
+                ],
             ],
             /* #1 */ [
                 [
@@ -52,7 +52,7 @@ class PushTest extends Unit
                     ],
                     'key' => '*.second',
                     'value' => 'VALUE'
-                ]
+                ],
             ],
             /* #2 */ [
                 [
@@ -66,7 +66,7 @@ class PushTest extends Unit
                     ],
                     'key' => '*.second',
                     'value' => 'VALUE'
-                ]
+                ],
             ],
             /* #3 */ [
                 [
@@ -114,7 +114,7 @@ class PushTest extends Unit
                     ],
                     'key' => '*.second.*.fourth',
                     'value' => 'VALUE'
-                ]
+                ],
             ],
             /* #4 */ [
                 [

@@ -126,7 +126,7 @@ class HasTest extends Unit
                     'expected' => true,
                     'key' => '*.second',
                     'value' => 'VALUE'
-                ]
+                ],
             ],
             /* #2 */
             [
@@ -135,7 +135,7 @@ class HasTest extends Unit
                     'expected' => false,
                     'key' => '*.second',
                     'value' => 'value'
-                ]
+                ],
             ],
             /* #3 */
             [['constructor' => ['*' => ['second' => 'value']], 'expected' => false, 'key' => '*.*', 'value' => '1']],
@@ -146,7 +146,7 @@ class HasTest extends Unit
                     'expected' => true,
                     'key' => '*.*',
                     'value' => 'value'
-                ]
+                ],
             ],
             /* #5 */
             [
@@ -155,7 +155,7 @@ class HasTest extends Unit
                     'expected' => false,
                     'key' => '*.*',
                     'value' => 'value'
-                ]
+                ],
             ],
             /* #6 */
             [
@@ -164,7 +164,7 @@ class HasTest extends Unit
                     'expected' => true,
                     'key' => '*.*',
                     'value' => 'value'
-                ]
+                ],
             ],
             /* #7 */
             [
@@ -191,7 +191,7 @@ class HasTest extends Unit
                     'expected' => false,
                     'key' => '*.second',
                     'value' => 'value'
-                ]
+                ],
             ],
             /* #10*/
             [
@@ -200,7 +200,7 @@ class HasTest extends Unit
                     'expected' => true,
                     'key' => '*.second',
                     'value' => 'value'
-                ]
+                ],
             ],
         ];
     }
@@ -248,7 +248,7 @@ class HasTest extends Unit
                     'expected' => false,
                     'key' => 'locations.Europe.*.currency',
                     'value' => 'ZAR'
-                ]
+                ],
             ],
             /* #3 */
             [
@@ -257,7 +257,7 @@ class HasTest extends Unit
                     'expected' => true,
                     'key' => ['locations.Africa.South Africa.currency', 'locations.Africa.*.currency',],
                     'value' => 'ZAR'
-                ]
+                ],
             ],
         ];
     }

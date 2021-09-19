@@ -49,7 +49,7 @@ class SetTest extends Unit
                     ],
                     'key' => '*.second',
                     'value' => 'VALUE'
-                ]
+                ],
             ],
             /* #1 */ [
                 [
@@ -63,7 +63,7 @@ class SetTest extends Unit
                     ],
                     'key' => '*.second',
                     'value' => 'VALUE'
-                ]
+                ],
             ],
             /* #2 */ [
                 [
@@ -77,7 +77,7 @@ class SetTest extends Unit
                     ],
                     'key' => '*.second',
                     'value' => 'VALUE'
-                ]
+                ],
             ],
             /* #3 */ [
                 [
@@ -125,7 +125,7 @@ class SetTest extends Unit
                     ],
                     'key' => '*.second.*.fourth',
                     'value' => 'VALUE'
-                ]
+                ],
             ],
         ];
     }

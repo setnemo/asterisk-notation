@@ -38,7 +38,7 @@ class AddTest extends Unit
                     ],
                     'key' => '*.second',
                     'value' => 'VALUE'
-                ]
+                ],
             ],
             /* #1 */ [
                 [
@@ -48,7 +48,7 @@ class AddTest extends Unit
                     ],
                     'key' => '*.second',
                     'value' => 'value'
-                ]
+                ],
             ],
             /* #2 */ [
                 [
@@ -58,7 +58,7 @@ class AddTest extends Unit
                     ],
                     'key' => '*.*',
                     'value' => '1'
-                ]
+                ],
             ],
             /* #3 */ [
                 [
@@ -69,7 +69,7 @@ class AddTest extends Unit
                     ],
                     'key' => '*.*',
                     'value' => '1'
-                ]
+                ],
             ],
             /* #4 */ [
                 [
@@ -85,7 +85,7 @@ class AddTest extends Unit
                     ],
                     'key' => '*.*',
                     'value' => '1'
-                ]
+                ],
             ],
             /* #5 */ [
                 [
@@ -97,7 +97,7 @@ class AddTest extends Unit
                     ],
                     'key' => '*.second',
                     'value' => '1'
-                ]
+                ],
             ],
             /* #6 */ [
                 [

@@ -121,6 +121,75 @@ class Asterisk extends Dot
     }
 
     /**
+     * Merge a given array or Asterisk object with the given key
+     * or with the whole Asterisk object
+     * Also ignored * in keys, worked like Dot::merge()
+     *
+     * @param array|string|self $key
+     * @param array|self        $value
+     */
+    public function merge($key, $value = [])
+    {
+        if (is_array($key)) {
+            $this->items = array_merge($this->items, $key);
+        } elseif (is_string($key)) {
+            $items = (array) $this->get($key, null, false);
+            $value = array_merge($items, $this->getArrayItems($value));
+
+            $this->set($key, $value, false);
+        } elseif ($key instanceof self) {
+            $this->items = array_merge($this->items, $key->all());
+        }
+    }
+
+    /**
+     * Recursively merge a given array or a Dot object with the given key
+     * or with the whole Dot object.
+     *
+     * Duplicate keys are converted to arrays.
+     *
+     * @param array|string|self $key
+     * @param array|self        $value
+     */
+    public function mergeRecursive($key, $value = [])
+    {
+        if (is_array($key)) {
+            $this->items = array_merge_recursive($this->items, $key);
+        } elseif (is_string($key)) {
+            $items = (array) $this->get($key, null, false);
+            $value = array_merge_recursive($items, $this->getArrayItems($value));
+
+            $this->set($key, $value, false);
+        } elseif ($key instanceof self) {
+            $this->items = array_merge_recursive($this->items, $key->all());
+        }
+    }
+
+    /**
+     * Recursively merge a given array or a Dot object with the given key
+     * or with the whole Dot object.
+     *
+     * Instead of converting duplicate keys to arrays, the value from
+     * given array will replace the value in Dot object.
+     *
+     * @param array|string|self $key
+     * @param array|self        $value
+     */
+    public function mergeRecursiveDistinct($key, $value = [])
+    {
+        if (is_array($key)) {
+            $this->items = $this->arrayMergeRecursiveDistinct($this->items, $key);
+        } elseif (is_string($key)) {
+            $items = (array) $this->get($key, null, false);
+            $value = $this->arrayMergeRecursiveDistinct($items, $this->getArrayItems($value));
+
+            $this->set($key, $value, false);
+        } elseif ($key instanceof self) {
+            $this->items = $this->arrayMergeRecursiveDistinct($this->items, $key->all());
+        }
+    }
+
+    /**
      * Set a given key / value pair or pairs
      * @param array|int|string $keys
      * @param mixed            $value

@@ -19,7 +19,7 @@ Asterisk notation for array access in PHP. Update array access to the next level
 ```php
 use Setnemo\Asterisk;
 
-$items = new \Setnemo\Asterisk([
+$items = new Asterisk([
     'Europe' => [
         'Ukraine' => [
             'capital' => 'Kyiv',
@@ -65,15 +65,15 @@ Create a new \Setnemo\Asterisk object:
 ```php
 use Adbar\Dot;
 use Setnemo\Asterisk;
-$asterisk = new \Setnemo\Asterisk;
+$asterisk = new Asterisk;
 $array = ['first_one' => ['second' => 'value'], 'first_two' => ['second' => 'value'],];
 // With existing array
-$asterisk = new \Setnemo\Asterisk($array);
+$asterisk = new Asterisk($array);
 // With existing \Adbar\Dot
 $dot = new Dot($array);
-$asterisk = new \Setnemo\Asterisk($dot);
+$asterisk = new Asterisk($dot);
 // or existing Asterisk
-$newAsterisk = new \Setnemo\Asterisk($asterisk);
+$newAsterisk = new Asterisk($asterisk);
 ```
 
 ## Methods
@@ -89,7 +89,7 @@ Asterisk has the following methods:
 - [get()](#get)
 - [has()](#has)
 - [isEmpty()](#isempty)
-- [merge()](#merge) // use Dot::merge(), **need write tests**, because used get(), set()
+- [merge()](#merge)
 - [mergeRecursive()](#mergerecursive)
 - [mergeRecursiveDistinct()](#mergerecursivedistinct)
 - [pull()](#pull)
@@ -326,11 +326,13 @@ $asterisk->isEmpty('*.spouse'); // true
 ### merge()
 
 > It works like [Adbar\Dot::merge()](https://github.com/adbario/php-dot-notation#merge)
+> Asterisk in path Asterisk::merge('key', 'value') work like Asterisk::set('key', 'value', false)
 
 <a name="mergerecursive"></a>
 ### mergeRecursive()
 
 > It works like [Adbar\Dot::mergeRecursive()](https://github.com/adbario/php-dot-notation#mergeRecursive)
+> Asterisk in path Asterisk::mergeRecursive('key', 'value') work like Asterisk::set('key', 'value', false)
 
 <a name="mergerecursivedistinct"></a>
 ### mergeRecursiveDistinct()

@@ -38,7 +38,7 @@ class ClearTest extends Unit
                         'first_two' => ['second' => []]
                     ],
                     'key' => '*.second'
-                ]
+                ],
             ],
             [
                 [
@@ -51,7 +51,7 @@ class ClearTest extends Unit
                         'first_two' => ['second' => []]
                     ],
                     'key' => '*.second'
-                ]
+                ],
             ],
             [
                 [
@@ -64,7 +64,7 @@ class ClearTest extends Unit
                         'first_two' => ['second' => []]
                     ],
                     'key' => '*.*'
-                ]
+                ],
             ],
             [
                 [
@@ -77,7 +77,7 @@ class ClearTest extends Unit
                         'first_two' => ['second' => 'value',]
                     ],
                     'key' => '*.second2'
-                ]
+                ],
             ],
             [
                 [
